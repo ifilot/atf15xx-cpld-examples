@@ -1,0 +1,73 @@
+Name     ATF1502AS_Counter;
+PartNo   00;
+Date     03/04/2025;
+Revision 01;
+Designer Ivo Filot;
+Company  retrohacks.nl;
+Assembly None;
+Location None;
+Device   f1504isptqfp44;
+
+PROPERTY ATMEL {POWER_RESET = OFF};
+PROPERTY ATMEL {PIN_KEEP = ON};
+PROPERTY ATMEL {PREASSIGN = KEEP};
+
+/** Use NO compiler minimization or optimization in WinCUPL!                                   **/
+/** If WinCUPL fails to generate a .fit and .jed file, go to the directory where the .pld file **/
+/** is located and type: "fit1508 FATCAVIA.tt2 -CUPL -device P1508T100 -JTAG ON".              **/
+
+/* On the ATF15XX-DK3, the following pins are connected to switches and LEDs */
+/* LED1   | 28   */
+/* LED2   | 25   */
+/* LED3   | 22   */
+/* LED4   | 19   */
+/* -------|----- */
+/* SW1    | 15   */
+/* SW2    | 14   */
+/* SW3    | 13   */
+/* SW4    | 12   */
+/* SW5    |  8   */
+/* SW6    |  5   */
+/* SW7    |  2   */
+/* SW8    | 44   */
+/* GCLK1  | 37   */
+/* GCLK2  | 40   */
+
+/* Define Input and Output Pins */
+PIN 28 = LED;
+PIN 40 = CLK;
+
+/*******************/
+/** Buried states **/
+/*******************/
+
+Pinnode = [T19..0]; /** Token Line Counter, 0 to 40 (6 bits) **/
+
+/**************************************/
+/* Implement T-type flip-flop counter */
+/**************************************/
+
+T19.t = T18 & T17 & T16 & T15 & T14 & T13 & T12 & T11 & T10 & T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T18.t = T17 & T16 & T15 & T14 & T13 & T12 & T11 & T10 & T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T17.t = T16 & T15 & T14 & T13 & T12 & T11 & T10 & T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T16.t = T15 & T14 & T13 & T12 & T11 & T10 & T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T15.t = T14 & T13 & T12 & T11 & T10 & T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T14.t = T13 & T12 & T11 & T10 & T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T13.t = T12 & T11 & T10 & T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T12.t = T11 & T10 & T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T11.t = T10 & T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T10.t = T9 & T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T9.t  = T8 & T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T8.t  = T7 & T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T7.t  = T6 & T5 & T4 & T3 & T2 & T1 & T0;
+T6.t  = T5 & T4 & T3 & T2 & T1 & T0;
+T5.t  = T4 & T3 & T2 & T1 & T0;
+T4.t  = T3 & T2 & T1 & T0;
+T3.t  = T2 & T1 & T0;
+T2.t  = T1 & T0;
+T1.t  = T0;
+T0.t  = 'b'1;   /* Always toggles */
+
+[T19..T0].ck = CLK;  /* Clocking the entire counter */
+
+LED = T19;  /* LED toggles every 1,048,576 cycles (~0.5s) */

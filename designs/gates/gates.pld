@@ -1,0 +1,48 @@
+Name     ATF1502AS_Example;
+PartNo   00;
+Date     03/04/2025;
+Revision 01;
+Designer Ivo Filot;
+Company  retrohacks.nl;
+Assembly None;
+Location None;
+Device   f1504isptqfp44;
+
+PROPERTY ATMEL {POWER_RESET = OFF};
+PROPERTY ATMEL {PIN_KEEP = ON};
+PROPERTY ATMEL {PREASSIGN = KEEP};
+
+/** Use NO compiler minimization or optimization in WinCUPL!                                   **/
+/** If WinCUPL fails to generate a .fit and .jed file, go to the directory where the .pld file **/
+/** is located and type: "fit1508 FATCAVIA.tt2 -CUPL -device P1508T100 -JTAG ON".              **/
+
+/* On the ATF15XX-DK3, the following pins are connected to switches and LEDs */
+/* LED1   | 28   */
+/* LED2   | 25   */
+/* LED3   | 22   */
+/* LED4   | 19   */
+/* -------|----- */
+/* SW1    | 15   */
+/* SW2    | 14   */
+/* SW3    | 13   */
+/* SW4    | 12   */
+/* SW5    |  8   */
+/* SW6    |  5   */
+/* SW7    |  2   */
+/* SW8    | 44   */
+/* GCLK1  | 37   */
+/* GCLK2  | 40   */
+
+/* Define Input and Output Pins */
+PIN 28 = Y1;
+PIN 25 = Y2;
+PIN 22 = Y3;
+PIN 19 = Y4;
+PIN 15 = A;
+PIN 14 = B;
+
+/* Define Logic Equations */
+Y1 = A & B; /* AND GATE */
+Y2 = A # B; /* OR GATE */
+Y3 = !(Y1); /* NAND GATE */
+Y4 = !(Y2); /* NOR GATE */
