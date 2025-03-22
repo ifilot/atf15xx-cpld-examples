@@ -1,0 +1,180 @@
+Name     ATF1502AS_P2000T_JOYSTICK_CARTRIDGE;
+PartNo   00;
+Date     03/04/2025;
+Revision 01;
+Designer Ivo Filot;
+Company  retrohacks.nl;
+Assembly None;
+Location None;
+Device   f1502ispplcc44;
+
+PROPERTY ATMEL {POWER_RESET = OFF};
+PROPERTY ATMEL {PIN_KEEP = ON};
+PROPERTY ATMEL {PREASSIGN = KEEP};
+
+/************************************************************
+* ATF1502AS - PLCC44 Pinout (Top View) - WINCUPL Compatible *
+*************************************************************
+* 1  = GCLR/I        ; Global Clear (input only)            *
+* 2  = GCLK2/OE2/I   ; Global Clock 2 / Output Enable / In  *
+* 3  = VCC           ; Power                                *
+* 4  = I/O           ; Usable I/O                           *
+* 5  = I/O           ; Usable I/O                           *
+* 6  = I/O           ; Usable I/O                           *
+* 7  = TDI/I/O       ; JTAG TDI or Usable I/O               *
+* 8  = I/O           ; Usable I/O                           *
+* 9  = I/O           ; Usable I/O                           *
+* 10 = GND           ; Ground                               *
+* 11 = PD1/I/O       ; Usable I/O or Power Down input       *
+* 12 = I/O           ; Usable I/O                           *
+* 13 = I/O/TMS       ; JTAG TMS or Usable I/O               *
+* 14 = I/O           ; Usable I/O                           *
+* 15 = VCC           ; Power                                *
+* 16 = I/O           ; Usable I/O                           *
+* 17 = I/O           ; Usable I/O                           *
+* 18 = I/O           ; Usable I/O                           *
+* 19 = I/O           ; Usable I/O                           *
+* 20 = I/O           ; Usable I/O                           *
+* 21 = I/O           ; Usable I/O                           *
+* 22 = GND           ; Ground                               *
+* 23 = VCC           ; Power                                *
+* 24 = I/O           ; Usable I/O                           *
+* 25 = PD2/I/O       ; Usable I/O or Power Down input       *
+* 26 = I/O           ; Usable I/O                           *
+* 27 = I/O           ; Usable I/O                           *
+* 28 = I/O           ; Usable I/O                           *
+* 29 = I/O           ; Usable I/O                           *
+* 30 = GND           ; Ground                               *
+* 31 = I/O           ; Usable I/O                           *
+* 32 = I/O/TCK       ; JTAG TCK or Usable I/O               *
+* 33 = I/O           ; Usable I/O                           *
+* 34 = I/O           ; Usable I/O                           *
+* 35 = VCC           ; Power                                *
+* 36 = I/O           ; Usable I/O                           *
+* 37 = I/O           ; Usable I/O                           *
+* 38 = I/O/TDO       ; JTAG TDO or Usable I/O               *
+* 39 = I/O           ; Usable I/O                           *
+* 40 = I/O           ; Usable I/O                           *
+* 41 = GCLK3/I/O     ; Global Clock 3 or Usable I/O         *
+* 42 = GND           ; Ground                               *
+* 43 = GCLK1/I       ; Global Clock 1 (input only)          *
+* 44 = OE1/I         ; Output Enable 1 (input only)         *
+************************************************************/
+
+/* Define Inputs and Outputs for Z80-style bus interface */
+PIN 4  = A0;        /* Address bit 0 */
+PIN 5  = A1;        /* Address bit 1 */
+PIN 6  = A2;        /* Address bit 2 */
+PIN 8  = A3;        /* Address bit 3 */
+PIN 9  = A4;        /* Address bit 4 */
+PIN 12 = A5;        /* Address bit 5 */
+PIN 14 = A6;        /* Address bit 6 */
+PIN 16 = A7;        /* Address bit 7 */
+
+PIN 17 = D0;        /* Data bit 0 */
+PIN 18 = D1;        /* Data bit 1 */
+PIN 19 = D2;        /* Data bit 2 */
+PIN 20 = D3;        /* Data bit 3 */
+PIN 21 = D4;        /* Data bit 4 */
+PIN 24 = D5;        /* Data bit 5 */
+PIN 26 = D6;        /* Data bit 6 */
+PIN 27 = D7;        /* Data bit 7 */
+
+PIN 28 = IORQ;      /* I/O Request (input) */
+PIN 29 = RD;        /* Read (input) */
+PIN 31 = WR;        /* Write (input) */
+
+/* Define Inputs for JOY1 (Joystick 1) */
+PIN 11 = JOY1_B0;   /* Joystick 1 Button 0 */
+PIN 25 = JOY1_B1;   /* Joystick 1 Button 1 */
+PIN 33 = JOY1_B2;   /* Joystick 1 Button 2 */
+PIN 34 = JOY1_B3;   /* Joystick 1 Button 3 */
+PIN 36 = JOY1_B4;   /* Joystick 1 Button 4 */
+
+/* Define Inputs for JOY2 (Joystick 2) */
+PIN 37 = JOY2_B0;   /* Joystick 2 Button 0 */
+PIN 39 = JOY2_B1;   /* Joystick 2 Button 1 */
+PIN 40 = JOY2_B2;   /* Joystick 2 Button 2 */
+PIN 41 = JOY2_B3;   /* Joystick 2 Button 3 */
+PIN 7  = JOY2_B4;   /* Joystick 2 Button 4 - JTAG TDI (avoid using JTAG) */
+
+/* Data bus is enabled for an /IORQ and /RD below 0x10 */
+DOUT = !A4 & !A5 & !A6 & !A7 & !IORQ & !RD;
+D0.OE = DOUT;
+D1.OE = DOUT;
+D2.OE = DOUT;
+D3.OE = DOUT;
+D4.OE = DOUT;
+D5.OE = DOUT;
+D6.OE = DOUT;
+D7.OE = DOUT;
+
+ /* Store whether keyboard is in polling mode */
+NODE KBIEN;
+KBIEN.ck = !WR & !A5 & !A6 & !A7 & A4;
+KBIEN.t = D6;
+
+/* generalized joystick addresses */
+JOY_ADDR_0 = !A3 & !A2 & !A1 & !A0;            /* Address 0x00 */
+JOY_ADDR_2 = !A3 & !A2 &  A1 & !A0;            /* Address 0x02 */
+JOY_ADDR_6 =  A3 & !A2 &  A1 & !A0;            /* Address 0x06 */
+JOY_ADDR_7 =  A3 & !A2 &  A1 &  A0;            /* Address 0x07 */
+JOY_ADDR_8 =  A3 &  A2 & !A1 & !A0;            /* Address 0x08 */
+
+/* -------------------------------------------------------------------
+ * Joystick Button to Data Bus Mapping
+ * -------------------------------------------------------------------
+ *  ID | Button      | Source     | Addr | D-Bit | Key Label
+ * ----|-------------|------------|------|-------|-----------
+ *  0  | P1_UP       | JOY1_B0    | 0x00 | D2    | UP
+ *  1  | P1_DOWN     | JOY1_B1    | 0x02 | D5    | DOWN
+ *  2  | P1_LEFT     | JOY1_B2    | 0x00 | D0    | LEFT
+ *  3  | P1_RIGHT    | JOY1_B3    | 0x02 | D7    | RIGHT
+ *  4  | P1_FIRE     | JOY1_B4    | 0x02 | D1    | SPACE
+ *  5  | P2_UP       | JOY2_B0    | 0x06 | D2    | NUM8
+ *  6  | P2_DOWN     | JOY2_B1    | 0x07 | D2    | NUM2
+ *  7  | P2_LEFT     | JOY2_B2    | 0x08 | D3    | NUM4
+ *  8  | P2_RIGHT    | JOY2_B3    | 0x08 | D0    | NUM6
+ *  9  | P2_FIRE     | JOY2_B4    | 0x02 | D3    | NUM0
+ * -------------------------------------------------------------------
+ * Logic applies when (ADDR matches & !KBIEN & button high) 
+ * OR (KBIEN & button high)
+ * Output bit will be pulled LOW (active) when matched
+ * ------------------------------------------------------------------- */
+
+/* D0: P1_LEFT (0x00) or P2_RIGHT (0x08) */
+D0 = !(
+    (JOY_ADDR_0 & !KBIEN & JOY1_B2) # (KBIEN & JOY1_B2)    /* P1_LEFT  */
+  # (JOY_ADDR_8 & !KBIEN & JOY2_B3) # (KBIEN & JOY2_B3)    /* P2_RIGHT */
+);
+
+/* D1: P1_FIRE only (0x02) */
+D1 = !(
+    (JOY_ADDR_2 & !KBIEN & JOY1_B4) # (KBIEN & JOY1_B4)    /* P1_FIRE */
+);
+
+/* D2: P1_UP (0x00), P2_UP (0x06), P2_DOWN (0x07) */
+D2 = !(
+    (JOY_ADDR_0 & !KBIEN & JOY1_B0) # (KBIEN & JOY1_B0)    /* P1_UP    */
+  # (JOY_ADDR_6 & !KBIEN & JOY2_B0) # (KBIEN & JOY2_B0)    /* P2_UP    */
+  # (JOY_ADDR_7 & !KBIEN & JOY2_B1) # (KBIEN & JOY2_B1)    /* P2_DOWN  */
+);
+
+/* D3: P2_LEFT (0x08) and P2_FIRE (0x02) */
+D3 = !(
+    (JOY_ADDR_8 & !KBIEN & JOY2_B2) # (KBIEN & JOY2_B2)    /* P2_LEFT  */
+  # (JOY_ADDR_2 & !KBIEN & JOY2_B4) # (KBIEN & JOY2_B4)    /* P2_FIRE  */
+);
+
+/* D5: P1_DOWN only (0x02) */
+D5 = !(
+    (JOY_ADDR_2 & !KBIEN & JOY1_B1) # (KBIEN & JOY1_B1)    /* P1_DOWN */
+);
+
+/* D7: P1_RIGHT only (0x02) */
+D7 = !(
+    (JOY_ADDR_2 & !KBIEN & JOY1_B3) # (KBIEN & JOY1_B3)    /* P1_RIGHT */
+);
+
+D4 = 'b'1;  /* Not used - always high */
+D6 = 'b'1;  /* Not used - always high */
