@@ -25,4 +25,6 @@ is also presented here.
 * Select ATF1504AS (or your specific device) for the *Device Name*, select
   `Program / Verify` under *JTAG Instruction* and select the JEDEC file as
   generated in the previous step.
-* Click `Run` to place the design on the CPLD.
+* Click `Run` to place the design on the CPLD. Note that the ATF1502 chip
+  needs to have its own 5V power supply. The ATDH1150USB is (apparently)
+  unable to provide power to the chip over the JTAG port.
